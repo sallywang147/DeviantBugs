@@ -32,7 +32,7 @@ def infer_beliefs(patchFile, bugFile, bugFixFile):
        code). ii) MAY beliefs, defined as code features that suggest a belief but may instead be a coincidence. For example, \
 	       a call to "a" followed by a call to "b" implies the programmer may believe they must be paired, but it could be a coincidence. \
 		       Plese carefully study the patch below and generate a list of MUST beliefs and MAY beliefs by the programmer regarding \
-	this patch: {patch}. 
+	this patch: {patch}. In your inferred beliefs, please also point to specific code to identify where the inferred beliefs are based on. 
 	"""
 	bug_prompt = f"""
 	Your task is to understand code and infer two sets of programmers' beliefs from three related programs: a full patch on a buggy program, \
@@ -42,7 +42,7 @@ def infer_beliefs(patchFile, bugFile, bugFixFile):
 	code). ii) MAY beliefs, defined as code features that suggest a belief but may instead be a coincidence. For example, \
 		a call to "a" followed by a call to "b" implies the programmer may believe they must be paired, but it could be a coincidence. \
 		Please carefully study the original bug snippets from the prior patch and infer a list of MUST beliefs \
-	and MAY beliefs held by the programmer regarding the buggy code snippet: {bug}.
+	and MAY beliefs held by the programmer regarding the buggy code snippet: {bug}. In your inferred beliefs, please also point to specific code to identify where the inferred beliefs are based on.
 	"""
 	bugfix_prompt = f"""
 	Your task is to understand code and infer two sets of programmers' beliefs from three related programs: a full patch on a buggy program, \
@@ -52,7 +52,7 @@ def infer_beliefs(patchFile, bugFile, bugFixFile):
        code). ii) MAY beliefs, defined as code features that suggest a belief but may instead be a coincidence. For example, \
 	       a call to "a" followed by a call to "b" implies the programmer may believe they must be paired, but it could be a coincidence. \
        Please carefully study the fixed code snippets from the prior patch and \
-	       infer a list of MUST beliefs and MAY beliefs held by the programmer regarding the corrected code snippet: {bug_fix}. 
+	       infer a list of MUST beliefs and MAY beliefs held by the programmer regarding the corrected code snippet: {bug_fix}. In your inferred beliefs, please also point to specific code to identify where the inferred beliefs are based on.
 	"""
 	patch_out = gpt_infer(patch_prompt)
 	print(f"BELIEFS ABOUT PATCHS:\n {patch_out}")
