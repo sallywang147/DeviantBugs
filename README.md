@@ -7,18 +7,18 @@ inference results (all inferred beliefs), please look at [LLM results folder](ht
 A simple double free bug example from bugs as deviant behavior: 
 
 ```
- if (copy_to_user (...))
-cmd_free(NULL, c) ;
-if (buff != NULL) kfree(buff) ;
-return(-EFAULT) ;
+1 if (copy_to_user (...))
+2    cmd_free(NULL, c) ;
+3 if (buff != NULL) kfree(buff) ;
+4    return(-EFAULT) ;
+ )
+5 if (io¢ommand.Direction == XFER_READ)
+6 if (copy_to_user (...))
+7   cmd_free(NULL, c) ;
+8   kfree (buff) ;
 )
-if (io¢ommand.Direction == XFER_READ)
-if (copy_to_user (...))
-cmd_free(NULL, c) ;
-kfree (buff) ;
-)
-cmd_free(NULL, c) ;
-if (buff != NULL) kfree(buff); 
+9 cmd_free(NULL, c) ;
+10 if (buff != NULL) kfree(buff); 
 ```
 
 Below is an analysis of the given code with inferred **MUST beliefs** and **MAY beliefs** for each line:
